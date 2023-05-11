@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'my_profile',
     'django_filters',
+    'polls.apps.PollsConfig',
 ]
 
 MIDDLEWARE = [
