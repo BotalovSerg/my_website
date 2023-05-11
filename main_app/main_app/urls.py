@@ -21,7 +21,7 @@ from store.views import BookViewSet
 from my_profile.views import home_page
 
 router = SimpleRouter()
-router.register('api/book', BookViewSet)
+router.register(r'book', BookViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
