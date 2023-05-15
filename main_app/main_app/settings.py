@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'my_profile',
     'django_filters',
     'polls.apps.PollsConfig',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +90,12 @@ DATABASES = {
     }
 }
 
+
+AUTHENTICATION_BACKENDS = (
+
+    'social_core.backends.github.GithubOAuth2',  
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -145,3 +152,8 @@ REST_FRAMEWORK = {
         
     
 }
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+SOCIAL_AUTH_GITHUB_KEY = '1e3263d6115e9c735609'
+SOCIAL_AUTH_GITHUB_SECRET = '5a93c546f11497bc23152e599393d667285f0bfb'
