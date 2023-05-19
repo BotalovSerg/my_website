@@ -7,12 +7,12 @@ from django.db.models import Count, Case, When, Avg
 
 class BookSerializerTestCase(TestCase):
     def test_ok(self):
-        user_1 = User.objects.create(username='user1')
-        user_2 = User.objects.create(username='user2')
-        user_3 = User.objects.create(username='user3')
+        user_1 = User.objects.create(username='user1', first_name='Name', last_name='Name')
+        user_2 = User.objects.create(username='user2', first_name='Name2', last_name='Name2')
+        user_3 = User.objects.create(username='user3', first_name='Name3', last_name='Name3')
 
         book_1 = Book.objects.create(name='Test book 1', price=100,
-                                     author_name='Author 1')
+                                     author_name='Author 1', owner=user_1)
         book_2 = Book.objects.create(name='Test book 2', price=99,
                                      author_name='Author 1')
         
@@ -34,19 +34,47 @@ class BookSerializerTestCase(TestCase):
                 'id': book_1.id,
                 'name': 'Test book 1',
                 'price': '100.00',
-                'author_name':'Author 1',     
-                'likes_count' : 3,
+                'author_name':'Author 1',  
                 'annotated_likes' : 3,
-                'rating' : '4.67'
+                'rating' : '4.67',
+                'owner_name' : 'user1',
+                'readers' : [
+                    {
+                        'first_name': 'Name',
+                        'last_name' : 'Name'
+                    },
+                    {
+                        'first_name': 'Name2',
+                        'last_name' : 'Name2'
+                    },
+                    {
+                        'first_name': 'Name3',
+                        'last_name' : 'Name3'
+                    },
+                ]
             },
             {
                 'id': book_2.id,
                 'name': 'Test book 2',
                 'price': '99.00',
                 'author_name':'Author 1',
-                'likes_count' : 2,
                 'annotated_likes' : 2,
-                'rating' : '3.50'
+                'rating' : '3.50',
+                'owner_name' : '',
+                'readers' : [
+                    {
+                        'first_name': 'Name',
+                        'last_name' : 'Name'
+                    },
+                    {
+                        'first_name': 'Name2',
+                        'last_name' : 'Name2'
+                    },
+                    {
+                        'first_name': 'Name3',
+                        'last_name' : 'Name3'
+                    },
+                ]
             },
         ] 
         self.assertEqual(expected_data, data)

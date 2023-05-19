@@ -31,7 +31,8 @@ urlpatterns = [
     re_path('', include('social_django.urls', namespace='social')),
     path('profile/', home_page),
     path('auth/', auth),
-    path('polls/', include('polls.urls'))
+    path('polls/', include('polls.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 urlpatterns += router.urls
