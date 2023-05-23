@@ -1,15 +1,27 @@
 from django.test import TestCase
-from store.logic import calc
+from store.logic import set_rating
+from store.models import Book, UserBookRelation
+from django.contrib.auth.models import User
 
 
+class SetRaringTestCase(TestCase):
+    def setUp(self):
+        user_1 = User.objects.create(username='user1', first_name='Name', last_name='Name')
+        user_2 = User.objects.create(username='user2', first_name='Name2', last_name='Name2')
+        user_3 = User.objects.create(username='user3', first_name='Name3', last_name='Name3')
 
-class LogicTestCase(TestCase):
-    def test_plus(self):
-        res = calc(6, 7, '+')
-        self.assertEqual(13, res)
-    def test_minus(self):
-        res = calc(10, 7, '-')
-        self.assertEqual(3, res)
-    def test_mult(self):
-        res = calc(5, 4, '*')
-        self.assertEqual(20, res)
+        self.book_1 = Book.objects.create(name='Test book 1', price=100,
+                                     author_name='Author 1', owner=user_1)
+        
+        
+        UserBookRelation.objects.create(user=user_1, book=self.book_1, like=True, rate=5)
+        UserBookRelation.objects.create(user=user_2, book=self.book_1, like=True, rate=5)
+        UserBookRelation.objects.create(user=user_3, book=self.book_1, like=True, rate=4)
+
+        
+
+
+    def test_ok(self):
+        set_rating(self.book_1)
+        self.book_1.refresh_from_db()
+        self.assertEqual('4.67', str(self.book_1.rating))
