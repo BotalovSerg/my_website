@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-m_x$w1w1b#^1l-1%zaju6a5q%62%3#xv0z^e#32@ahrql__z8%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.109', 'localhost']
 
 
 # Application definition
@@ -91,7 +91,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'my_db',
-        'USER': 'postgres',
+        'USER': 'admin_db',
         'PASSWORD': 'admin888',
         'HOST': 'localhost',
         'PORT': '',
@@ -140,6 +140,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
